@@ -14,7 +14,7 @@ interface ElectionInterface {
 
     function vote(uint candidateId) external returns (bool);
 
-    function end() external returns (bool);
+    function end() external;
 
 
 
@@ -22,4 +22,5 @@ interface ElectionInterface {
     /** Events */
     event Vote(uint indexed candidateId);
     event ElectionResult(string indexed candidateName, uint voteCount);
+
 }

@@ -26,7 +26,6 @@ contract Election is Ownable, ElectionInterface {
 
     constructor(string memory _electionName) {
         electionName = _electionName;
-        owner = msg.sender;
     }
 
     function addCandidate(string memory name)

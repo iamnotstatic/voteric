@@ -1,4 +1,4 @@
-async function shouldThrow(promise) {
+async function expectThrow(promise) {
     try {
       await promise;
       assert(true);
@@ -24,6 +24,6 @@ async function shouldThrow(promise) {
   }
   
   module.exports = {
-    shouldThrow,
+    expectThrow,
     expectEvent
   };
