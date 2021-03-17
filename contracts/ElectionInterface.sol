@@ -10,11 +10,16 @@ interface ElectionInterface {
 
     function addCandidate(string memory name) external returns (bool);
 
-    function getCandidate(uint candidateId) external view returns (uint256, string memory, uint256);
+    function authorize(address person) external returns (bool);
 
     function vote(uint candidateId) external returns (bool);
+
+    function end() external returns (bool);
+
+
 
 
     /** Events */
     event Vote(uint indexed candidateId);
+    event ElectionResult(string indexed candidateName, uint voteCount);
 }

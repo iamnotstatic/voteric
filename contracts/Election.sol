@@ -12,10 +12,22 @@ contract Election is Ownable, ElectionInterface {
         uint256 voteCount;
     }
 
-    mapping(uint256 => Candidate) private candidates;
+    struct Voter {
+        bool authorized;
+        bool voted;
+    }
+
+    mapping(uint256 => Candidate) public candidates;
     uint256 public candidateCount;
 
-    mapping(address => bool) private voters;
+    mapping(address => Voter) public voters;
+    string public electionName;
+    
+
+    constructor(string memory _electionName) {
+        electionName = _electionName;
+        owner = msg.sender;
+    }
 
     function addCandidate(string memory name)
         public
@@ -30,36 +42,40 @@ contract Election is Ownable, ElectionInterface {
         return true;
     }
 
-    function getCandidate(uint256 candidateId)
+    function authorize(address person)
         public
-        view
         virtual
         override
-        returns (
-            uint256,
-            string memory,
-            uint256
-        )
+        onlyOwner()
+        returns(bool)
     {
-        return (
-            candidates[candidateId].id,
-            candidates[candidateId].name,
-            candidates[candidateId].voteCount
-        );
+        voters[person].authorized = true;
+
+        return true;
     }
 
     function vote(uint256 candidateId) public virtual override returns (bool) {
-        require(!voters[msg.sender], "Already voted");
+        require(!voters[msg.sender].voted, "Already voted");
+        require(voters[msg.sender].authorized, "Authorized");
         require(
             candidateId > 0 && candidateId <= candidateCount,
             "Invalid candidate"
         );
 
-        voters[msg.sender] = true;
+        voters[msg.sender].voted = true;
         candidates[candidateId].voteCount++;
 
         emit Vote(candidateId);
 
         return true;
     }
+
+
+    function end() public override virtual onlyOwner()  {
+        //announce each candidates results
+        for(uint i=0; i < candidateCount; i++) {
+            emit ElectionResult(candidates[i].name, candidates[i].voteCount);
+        }    
+    }
+    
 }
