@@ -55,7 +55,7 @@ contract Election is Ownable, ElectionInterface {
 
     function vote(uint256 candidateId) public virtual override returns (bool) {
         require(!voters[msg.sender].voted, "Already voted");
-        require(voters[msg.sender].authorized, "Authorized");
+        require(voters[msg.sender].authorized, "Unauthorized");
         require(
             candidateId > 0 && candidateId <= candidateCount,
             "Invalid candidate"
