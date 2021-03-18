@@ -83,7 +83,8 @@ contract('Election  contract Tests', async (accounts) => {
     });
 
     it('owner should be able to end election', async () => {
-      await this.contract.end({ from: owner });
+      let status = this.contract.end({ from: owner });
+      await expectEvent(status, "ElectionResult");
     });
   });
 });
