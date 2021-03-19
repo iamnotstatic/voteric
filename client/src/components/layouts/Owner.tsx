@@ -20,6 +20,7 @@ const Owner = ({ state: { contract, accounts, owner } }: any) => {
                     type="text"
                     placeholder="address"
                     required
+                    maxLength={42}
                     onChange={(e) => setAddress(e.target.value)}
                     className="p-1 px-2 appearance-none outline-none w-full text-gray-800 "
                   />{' '}

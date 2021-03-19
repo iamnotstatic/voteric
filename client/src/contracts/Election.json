@@ -13226,10 +13226,127 @@
       "links": {},
       "address": "0x32758448EA92F9d6f221aDf5D305f414279DDc25",
       "transactionHash": "0x831fe3d879bee71765280afbb1a4217acfd47e4776b5bd04d9edef50bad25362"
+    },
+    "1616171797361": {
+      "events": {
+        "0x156b5ffaa1a96772b4d324b6a0492ba5c51abe8a2818c38a0d409faddb63578c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "string",
+              "name": "candidateName",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "voteCount",
+              "type": "uint256"
+            }
+          ],
+          "name": "ElectionResult",
+          "type": "event"
+        },
+        "0xdcd6a5cd90707bfd61ed2fddae23e88c584cb5b78a0e9989710a59fd84c0a1f9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "candidateId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Vote",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x89a143725bAA5a18d2aE2B49DdbF35286D11a852",
+      "transactionHash": "0xce4a7f9507242bee422821903754ce2cb2ead1795a2a393e6d543139b76671d6"
+    },
+    "1616178769683": {
+      "events": {
+        "0x156b5ffaa1a96772b4d324b6a0492ba5c51abe8a2818c38a0d409faddb63578c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "string",
+              "name": "candidateName",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "voteCount",
+              "type": "uint256"
+            }
+          ],
+          "name": "ElectionResult",
+          "type": "event"
+        },
+        "0xdcd6a5cd90707bfd61ed2fddae23e88c584cb5b78a0e9989710a59fd84c0a1f9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "candidateId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Vote",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xCdbc19612dA996212FE07EAB7E5b38E618acAA45",
+      "transactionHash": "0x37132857ca544e0089957dc0f95f77ca5f7a51ce6c1b241127786fb853910c8f"
+    },
+    "1616178997435": {
+      "events": {
+        "0x156b5ffaa1a96772b4d324b6a0492ba5c51abe8a2818c38a0d409faddb63578c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "string",
+              "name": "candidateName",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "voteCount",
+              "type": "uint256"
+            }
+          ],
+          "name": "ElectionResult",
+          "type": "event"
+        },
+        "0xdcd6a5cd90707bfd61ed2fddae23e88c584cb5b78a0e9989710a59fd84c0a1f9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "candidateId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Vote",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xC25b676c5BB4f33A9d9E599B947702ff8C2c298F",
+      "transactionHash": "0xea426ba93d522c9de506575727a2a3c685a7975fb9333bf5dddf888a0230c332"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-03-19T07:03:12.627Z",
+  "updatedAt": "2021-03-19T18:36:51.073Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

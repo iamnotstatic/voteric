@@ -26,7 +26,7 @@ const Candidates = () => {
         contractJson.abi,
         deployedNetwork && deployedNetwork.address
       );
-      
+
       let accounts = await web3.eth.getAccounts();
 
       let candidateCount = await contract.methods.candidateCount().call();
@@ -42,12 +42,24 @@ const Candidates = () => {
       setLoading(false);
 
       setState({ web3, accounts, contract, candidates, voter, owner });
+
+      await contract.events.Vote(
+        {},
+        {
+          fromBlock: 0,
+          toBlock: 'latest',
+        },
+        function (error: any, event: any) {
+          console.log("trigged");
+        }
+      );
     })();
   }, []);
+
   return (
     <div className="min-w-screen flex items-center justify-center font-sans overflow-hidden">
       <div className="lg:w-5/6 w-full ">
-        <Owner state={state}/>
+        <Owner state={state} />
         <div className="overflow-x-auto">
           <div className="">
             <h1 className="mt-8 text-3xl">Candidates</h1>
