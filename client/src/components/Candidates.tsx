@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import CandidateItem from './CandidateItem';
+import Owner from './layouts/Owner';
 
 import ElectionContract from '../contracts/Election.json';
 
@@ -10,7 +11,9 @@ const Candidates = () => {
     accounts: null,
     contract: null,
     candidates: null,
+    voter: null,
   });
+  const [loading, setLoading] = useState<any | null>(true);
 
   useEffect(() => {
     let web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
@@ -25,6 +28,7 @@ const Candidates = () => {
       let accounts = await web3.eth.getAccounts();
 
       let candidateCount = await contract.methods.candidateCount().call();
+      let voter = await contract.methods.voters(accounts[0]).call();
 
       let candidates = [];
 
@@ -32,37 +36,50 @@ const Candidates = () => {
         let candidate = await contract.methods.candidates(i).call();
         candidates.push(candidate);
       }
+      setLoading(false);
 
-      setState({ web3, accounts, contract, candidates });
+      setState({ web3, accounts, contract, candidates, voter });
     })();
   }, []);
   return (
-    <>
-      <div className="overflow-x-auto">
-        <div className="lg:ml-20">
-          <h1 className="mt-8 lg:ml-20 text-3xl">Candidates</h1>
-        </div>
-        <div className="min-w-screen flex items-center justify-center font-sans overflow-hidden">
-          <div className="w-full lg:w-5/6">
-            <div className="bg-white shadow-md rounded my-6">
-              <table className="min-w-max w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left">#</th>
-                    <th className="py-3 px-6 text-left">Name</th>
-                    <th className="py-3 px-6 text-center">Vote Progress</th>
-                    <th className="py-3 px-6 text-center">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="text-gray-600 text-sm font-light">
-                  <CandidateItem cands={state.candidates} />
-                </tbody>
-              </table>
-            </div>
+    <div className="min-w-screen flex items-center justify-center font-sans overflow-hidden">
+      <div className="lg:w-5/6 w-full ">
+        <Owner state={state}/>
+        <div className="overflow-x-auto">
+          <div className="">
+            <h1 className="mt-8 text-3xl">Candidates</h1>
           </div>
+          {loading === false ? (
+            <div className="">
+              <div className="w-full ">
+                <div className="bg-white shadow-md rounded my-6">
+                  <table className="min-w-max w-full table-auto">
+                    <thead>
+                      <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <th className="py-3 px-6 text-left">#</th>
+                        <th className="py-3 px-6 text-left">Name</th>
+                        <th className="py-3 px-6 text-center">Vote Progress</th>
+                        <th className="py-3 px-6 text-center">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-gray-600 text-sm font-light">
+                      <CandidateItem state={state} />
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="loader">
+              <div className="lds-ripple">
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

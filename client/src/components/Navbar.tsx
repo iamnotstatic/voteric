@@ -3,12 +3,15 @@ import Web3 from 'web3';
 
 const Navbar = () => {
   const [accounts, setAccount] = useState<any | null>(null);
+  const [loading, setLoading] = useState<any | null>(false);
 
   useEffect(() => {
     let web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
     (async () => {
+      setLoading(true);
       let resp = await web3.eth.getAccounts();
       setAccount(resp);
+      setLoading(false);
     })();
   }, []);
 
@@ -55,7 +58,7 @@ const Navbar = () => {
                         aria-haspopup="true"
                         onClick={enableMataMask}
                       >
-                        connect
+                        {loading ? 'Loading...' : 'connect'}
                       </button>
                     </>
                   )}
