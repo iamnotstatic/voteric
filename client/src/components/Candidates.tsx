@@ -12,6 +12,7 @@ const Candidates = () => {
     contract: null,
     candidates: null,
     voter: null,
+    owner: null,
   });
   const [loading, setLoading] = useState<any | null>(true);
 
@@ -25,10 +26,12 @@ const Candidates = () => {
         contractJson.abi,
         deployedNetwork && deployedNetwork.address
       );
+      
       let accounts = await web3.eth.getAccounts();
 
       let candidateCount = await contract.methods.candidateCount().call();
       let voter = await contract.methods.voters(accounts[0]).call();
+      let owner = await contract.methods.owner().call();
 
       let candidates = [];
 
@@ -38,7 +41,7 @@ const Candidates = () => {
       }
       setLoading(false);
 
-      setState({ web3, accounts, contract, candidates, voter });
+      setState({ web3, accounts, contract, candidates, voter, owner });
     })();
   }, []);
   return (
