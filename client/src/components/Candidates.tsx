@@ -17,42 +17,53 @@ const Candidates = () => {
   const [loading, setLoading] = useState<any | null>(true);
 
   useEffect(() => {
-    let web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
-    let contractJson: any = ElectionContract;
     (async () => {
-      const networkId = await web3.eth.net.getId();
-      const deployedNetwork: any = contractJson.networks[networkId];
-      const contract: any = new web3.eth.Contract(
-        contractJson.abi,
-        deployedNetwork && deployedNetwork.address
-      );
+      if (typeof (window as any).ethereum !== 'undefined') {
+        let web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
+        let contractJson: any = ElectionContract;
 
-      let accounts = await web3.eth.getAccounts();
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork: any = contractJson.networks[networkId];
+        const contract: any = new web3.eth.Contract(
+          contractJson.abi,
+          deployedNetwork && deployedNetwork.address
+        );
 
-      let candidateCount = await contract.methods.candidateCount().call();
-      let voter = await contract.methods.voters(accounts[0]).call();
-      let owner = await contract.methods.owner().call();
+        let accounts = await web3.eth.getAccounts();
 
-      let candidates = [];
+        if (accounts.length !== 0) {
+          let candidateCount = await contract.methods.candidateCount().call();
+          let voter = await contract.methods
+            .voters(accounts && accounts[0])
+            .call();
+          let owner = await contract.methods.owner().call();
 
-      for (let i = 1; i <= candidateCount; i++) {
-        let candidate = await contract.methods.candidates(i).call();
-        candidates.push(candidate);
-      }
-      setLoading(false);
+          let candidates = [];
 
-      setState({ web3, accounts, contract, candidates, voter, owner });
+          for (let i = 1; i <= candidateCount; i++) {
+            let candidate = await contract.methods.candidates(i).call();
+            candidates.push(candidate);
+          }
+          setLoading(false);
 
-      await contract.events.Vote(
-        {},
-        {
-          fromBlock: 0,
-          toBlock: 'latest',
-        },
-        function (error: any, event: any) {
-          console.log("trigged");
+          setState({ web3, accounts, contract, candidates, voter, owner });
+
+          contract.events.Vote(
+            {},
+            {
+              fromBlock: 0,
+              toBlock: 'latest',
+            },
+            function (error: any, event: any) {
+              console.log('trigged');
+            }
+          );
+        } else {
+          console.log('connect site to metamask');
         }
-      );
+      } else {
+        console.log('install MetaMask');
+      }
     })();
   }, []);
 

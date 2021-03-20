@@ -19,7 +19,6 @@ const Navbar = () => {
     if ((window as any).ethereum) {
       try {
         (window as any).ethereum.enable();
-        console.log('Hello');
       } catch (error) {
         console.log(error);
       }
@@ -33,7 +32,7 @@ const Navbar = () => {
           <div className="relative flex items-center justify-between h-16">
             <div className="flex-1 flex">
               <div className="flex-shrink-0 flex items-center">
-                <h1 className="text-gray-50 leading-20 text-2xl">Vote App</h1>
+                <h1 className="text-gray-50 leading-20 text-2xl">Voteric</h1>
               </div>
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -46,7 +45,7 @@ const Navbar = () => {
                         aria-expanded="false"
                         aria-haspopup="true"
                       >
-                        {accounts[0]}
+                        {accounts && accounts[0]}
                       </p>
                     </>
                   ) : (

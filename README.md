@@ -1,11 +1,11 @@
 
 <div align="center">
 
-## Voting Contract 🚀🚀
+## Voteric 🚀🚀
 
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-red.svg?style=flat)](http://makeapullrequest.com)
 
-A decentralized voting contract with Solidity
+Voteric is a decentralized voting application
 
 </div>
 
@@ -13,7 +13,7 @@ A decentralized voting contract with Solidity
 
 ```bash
 # Clone Repo
-$ git clone `https://github.com/iamnotstatic/voting-contract.git`
+$ git clone `https://github.com/iamnotstatic/voteric.git`
 
 ```
 
@@ -31,6 +31,18 @@ $ truffle test
 
 ```
 
+## Starting the Frontend
+```bash
+# CD to the client directory
+$ cd client
+
+# Install Dependencies
+$ yarn install
+
+# Lunch the project
+$ yarn start
+
+```
 # Author 💖
 
 [Abdulfatai Suleiman](https://twitter.com/iamnotstatic)!
