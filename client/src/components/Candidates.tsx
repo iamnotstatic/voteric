@@ -48,14 +48,21 @@ const Candidates = () => {
 
           setState({ web3, accounts, contract, candidates, voter, owner });
 
-          contract.events.Vote(
-            {},
+          // Event  Listenters
+          contract.once(
+            'Vote',
             {
               fromBlock: 0,
               toBlock: 'latest',
             },
             function (error: any, event: any) {
-              console.log('trigged');
+              window.location.reload();
+            }
+          );
+          (window as any).ethereum.on(
+            'accountsChanged',
+            function (accounts: any) {
+              window.location.reload();
             }
           );
         } else {
